@@ -1,3 +1,5 @@
+![Image of isaev26-telegram](https://i.imgur.com/ZLud8uS.png)
+
 # TelegramAntiVoice-telethon
 
 Антиголосовой скрипт для телеграмм на основе telethon
