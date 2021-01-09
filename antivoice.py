@@ -1,18 +1,20 @@
-from telethon import TelegramClient, events, sync, utils
 import time
+from telethon import TelegramClient, events
 
-api_id = *******
-api_hash = '*******************************'
+
+tel = '+7**********'
+api_id = 000000
+api_hash = '********************************'
 # Телеграм API ид и API хеш с сайта https://my.telegram.org/apps
 
 bot = TelegramClient("session_id", api_id, api_hash)
-bot.start('+7*********')
-# Ваш номер телефона. при перврм запуске вы получите код на телеграм, вводите его в консоль
-whitelist = []          # Список белого листа с id пользователей
-voice_len = 5           # Мин длина голосового
+bot.start(phone=tel)
+# Ваш номер телефона. при первом запуске вы получите код на телеграм, вводите его в консоль
+whitelist = []  # Список белого листа с id пользователей
+voice_len = 5  # Мин длина голосового
 
 
-def fuck(x):            # Переопределение длины голосовых
+def fuck(x):  # Переопределение длины голосовых
     global voice_len
     voice_len = x
 
@@ -26,55 +28,53 @@ async def addWhitelist(event):
     if m_text == 'voice_true':  # Если ввели команду voice_true
         if user_id not in whitelist:
             whitelist.append(user_id)
-            # Удаление команды voice_true из чата
-            await bot.delete_messages(event.chat_id, [event.id])
+            await bot.delete_messages(event.chat_id, [event.id])  # Удаление команды voice_true из чата
             await event.respond('__Вам разрешили функцию голосовых сообщений.__')
         else:
             await bot.delete_messages(event.chat_id, [event.id])
             # Удаление команды voice_true из чата при повторном вводе
             m = await event.respond('__Пользователь уже белом списке голосовых сообщений.__')
-            # Записываетм event в переменную m
-            time.sleep(2)  # Задреджка на 2сек до удаление
+            # Записываем event в переменную m
+            time.sleep(2)  # Задержка на 2сек до удаление
             await bot.delete_messages(event.chat_id, [m.id])
-            # Удалаем текст "__Пользователь уже белом списке голосовых сообщений.__" полученным id из переменной m
+            # Удаляем текст "__Пользователь уже белом списке голосовых сообщений.__" полученным id из переменной m
     elif m_text == 'voice_false':  # Если ввели команду voice_false
         if user_id in whitelist:
             whitelist.remove(user_id)
-            # Удаление команды voice_false из чата
-            await bot.delete_messages(event.chat_id, [event.id])
+            await bot.delete_messages(event.chat_id, [event.id])  # Удаление команды voice_false из чата
             await event.respond('__Вам ограничили функцию голосовых сообщений.__')
         else:
             await bot.delete_messages(event.chat_id, [event.id])
             # Удаление команды voice_false из чата при повторном вводе
             m = await event.respond('__Пользователь уже черном списке голосовых сообщений.__')
-            # Записываетм event в переменную m
-            time.sleep(2)  # Задреджка на 2сек до удаление
+            # Записываем event в переменную m
+            time.sleep(2)  # Задержка на 2сек до удаление
             await bot.delete_messages(event.chat_id, [m.id])
-            # Удалаем текст "__Пользователь уже черном списке голосовых сообщений.__" полученным id из переменной m
+            # Удаляем текст "__Пользователь уже черном списке голосовых сообщений.__" полученным id из переменной m
     elif m_text == "voice5":
         await bot.delete_messages(event.chat_id, [event.id])
         # Удаление команды voice5 из чата
         m = await event.respond('__Голосовые сообщение до 5сек под запретом.__')
         fuck(5)
-        time.sleep(2)  # Задреджка на 2сек до удаление
+        time.sleep(2)  # Задержка на 2сек до удаление
         await bot.delete_messages(event.chat_id, [m.id])
-        # Удалаем текст "__Голосовые сообщение до 5сек под запретом.__" полученным id из переменной m
+        # Удаляем текст "__Голосовые сообщение до 5сек под запретом.__" полученным id из переменной m
     elif m_text == "voice10":
         await bot.delete_messages(event.chat_id, [event.id])
         # Удаление команды voice10 из чата
         m = await event.respond('__Голосовые сообщение до 10сек под запретом.__')
         fuck(10)
-        time.sleep(2)  # Задреджка на 2сек до удаление
+        time.sleep(2)  # Задержка на 2сек до удаление
         await bot.delete_messages(event.chat_id, [m.id])
-        # Удалаем текст "__Голосовые сообщение до 10сек под запретом.__" полученным id из переменной m
+        # Удаляем текст "__Голосовые сообщение до 10сек под запретом.__" полученным id из переменной m
     elif m_text == "voice15":
         await bot.delete_messages(event.chat_id, [event.id])
         # Удаление команды voice15 из чата
         m = await event.respond('__Голосовые сообщение до 15сек под запретом.__')
         fuck(15)
-        time.sleep(2)  # Задреджка на 2сек до удаление
+        time.sleep(2)  # Задержка на 2сек до удаление
         await bot.delete_messages(event.chat_id, [m.id])
-        # Удалаем текст "__Голосовые сообщение до 15сек под запретом.__" полученным id из переменной m
+        # Удаляем текст "__Голосовые сообщение до 15сек под запретом.__" полученным id из переменной m
 
 
 @bot.on(events.NewMessage(incoming=True))
